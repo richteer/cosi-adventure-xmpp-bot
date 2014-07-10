@@ -1,0 +1,16 @@
+cosi-adventure XMPP Bot
+=======================
+
+Dependencies
+------------
+ * libstrophe
+ * cosi-adventure
+
+Notes
+-----
+bot.c code shamelessly borrowed from http://github.com/metajack/libstrophe/examples/bot.c
+Place the cosi-adventure binary, and data file in the same directory as the bot.
+Run the bot with ./bot <jid> <pass>, any valid pair will do.
+
+Example:
+./bot username@xmpp.server.net password1234
