@@ -74,7 +74,7 @@ int version_handler(xmpp_conn_t * const conn, xmpp_stanza_t * const stanza, void
 int message_handler(xmpp_conn_t * const conn, xmpp_stanza_t * const stanza, void * const userdata)
 {
 	xmpp_stanza_t *reply, *body, *text;
-	char *intext, replytext[COSI_READBUF_LEN] = {0};
+	char *intext, replytext[COSI_READBUF_LEN+1] = {0};
 	xmpp_ctx_t *ctx = (xmpp_ctx_t*)userdata;	
 	char * username;
 
@@ -95,10 +95,12 @@ int message_handler(xmpp_conn_t * const conn, xmpp_stanza_t * const stanza, void
 	xmpp_stanza_set_name(body, "body");
 
 	if (cosi_check_instance(username)) {
-		cosi_create_instance(username, replytext);
+		replytext[0] = '\n';
+		cosi_create_instance(username, replytext + 1);
 	}	
 	else {
-		cosi_send_instruction(username, intext, replytext);
+		replytext[0] = '\n';
+		cosi_send_instruction(username, intext, replytext + 1);
 	}
 
 //	replytext = malloc(strlen(" to you too!") + strlen(intext) + 1);
